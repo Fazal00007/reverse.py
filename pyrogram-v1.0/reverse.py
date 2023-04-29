@@ -21,6 +21,7 @@ class STRINGS:
     DOWNLOADING_MEDIA = '<b>• Downloading media...</b>'
     UPLOADING_MEDIA = '<b>• Uploading media...</b>'
     API_ERROR = '<b>An API Error occured while requesting:</b>:\n{}'
+    SUPPORT_CHAT = '<b>Support Chat:</b> @HelpSupportChat'
     REVERSE_RESULT = '''
 <b>Search Keyword:</b> <code>{}</code>
 <b>Results link:</b> <a href='{}'>Link</a>.
@@ -52,7 +53,7 @@ async def on_reverse(client: Client, message: Message) -> Message:
             response = await async_client.post(API_URL, files=files)
         response_json = response.json()
         if response.status_code != 200:
-            await message.reply(STRINGS.API_ERROR.format(response_json['error']))
+            await message.reply(STRINGS.API_ERROR.format(response_json['error']) + STRINGS.SUPPORT_CHAT)
             return
         search_keyword = response_json['keyword']
         url = response_json['url']
